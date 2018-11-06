@@ -7,5 +7,9 @@
 }
 
 #MicrosoftNav {
-  /* display: none; */
+  display: none;
+}
+
+canvas#labelCanvasId {
+  display: none;
 }

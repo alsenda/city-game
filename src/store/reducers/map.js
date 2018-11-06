@@ -1,7 +1,9 @@
+import cities from '../cities';
+
 const initialState = {
   score: 1500,
   maxDeviation: 50000,
-  cities: [],
+  cities: cities,
   currentCity: {
     name: 'Brussels',
     coordinates: {
@@ -20,6 +22,11 @@ const map = (state = initialState, action) => {
         ...state,
         clickCoordinates: action.clickCoordinates
       };
+    case 'SUBTRACT_POINTS':
+      return {
+        ...state,
+        score: state.score - action.lostPoints
+      }
     default:
       return state;
   }

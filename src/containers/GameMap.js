@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
-import { mapClick } from '../store/actions';
+import { mapClick, subtractPoints } from '../store/actions';
 import React, { Component } from 'react';
 import geolib from 'geolib';
 import Map from '../components/Map';
+import GameUI from '../components/GameUI';
 
 class GameMap extends Component {
   handleMapClick(location) {
@@ -16,6 +17,7 @@ class GameMap extends Component {
     const distance = geolib.getDistance(clickCoordinates, currentCityCoordinates);
     if(distance > this.props.map.maxDeviation) {
       console.log('TOO FAR', distance);
+      this.props.losePoints(distance/1000);
     } else {
       console.log('YOU GOT IT', distance);
     }
@@ -26,11 +28,12 @@ class GameMap extends Component {
       clickHandler: this.handleMapClick.bind(this),
       center: [50, 14],
       bingmapKey: 'AreSMxQDRlNyZMBEt5u5fQ9g5OP_jdLS4TkgAiV7Evki1Czpor8RExlEXzljmySW',
-      mapTypeId: 'aerial'
+      mapTypeId: 'road'
     };
 
     return (
       <div className='GameMap'>
+        <GameUI score={ this.props.map.score } currentCity={ this.props.map.currentCity } />
         <Map { ...mapProps } />
       </div>
     );
@@ -39,13 +42,14 @@ class GameMap extends Component {
 
 const mapStateToProps = state => {
   return {
-    map: state.map
+    map: state.map,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    mapClicked: (clickCoordinates) => dispatch(mapClick(clickCoordinates))
+    mapClicked: (clickCoordinates) => dispatch(mapClick(clickCoordinates)),
+    losePoints: (lostPoints) => dispatch(subtractPoints(lostPoints)),
   };
 };
 

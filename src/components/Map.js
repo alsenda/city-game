@@ -12,6 +12,9 @@ const map = ({ clickHandler, center, bingmapKey, mapTypeId }) => (
           getLocation = {
             { addHandler: 'click', callback: ((e) => clickHandler(e)) }
           }
+          mapOptions = {{
+            disableScrollWheelZoom: true,
+          }}
         > 
       </ReactBingmaps>
     </div>
