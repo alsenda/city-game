@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { mapClick, subtractPoints } from '../store/actions';
+import { mapClick, subtractPoints, citySpotted } from '../store/actions';
 import React, { Component } from 'react';
 import geolib from 'geolib';
 import Map from '../components/Map';
@@ -9,32 +9,29 @@ class GameMap extends Component {
   handleMapClick(location) {
     const clickCoordinates = {
       latitude: location.latitude,
-      longitude: location.longitude
+      longitude: location.longitude,
     };
-    console.log('clickCoordinates', clickCoordinates);
     this.props.mapClicked(clickCoordinates);
-    const currentCityCoordinates = this.props.map.currentCity.coordinates;
+    const currentCityCoordinates = this.props.currentCity.coordinates;
     const distance = geolib.getDistance(clickCoordinates, currentCityCoordinates);
-    if(distance > this.props.map.maxDeviation) {
-      console.log('TOO FAR', distance);
-      this.props.losePoints(distance/1000);
+    if (distance > this.props.maxDeviation) {
+      this.props.losePoints(distance / 1000);
     } else {
-      console.log('YOU GOT IT', distance);
+      this.props.citySpotted(this.props.currentCity);
     }
   }
 
   render() {
-    const mapProps = {
-      clickHandler: this.handleMapClick.bind(this),
-      center: [50, 14],
-      bingmapKey: 'AreSMxQDRlNyZMBEt5u5fQ9g5OP_jdLS4TkgAiV7Evki1Czpor8RExlEXzljmySW',
-      mapTypeId: 'road'
-    };
-
     return (
       <div className='GameMap'>
-        <GameUI score={ this.props.map.score } currentCity={ this.props.map.currentCity } />
-        <Map { ...mapProps } />
+        <GameUI
+          score={this.props.score}
+          currentCity={this.props.currentCity}
+          scoreChange={this.props.change}
+          cities={this.props.cities}
+          spottedCities={this.props.spottedCities}
+          />
+        <Map clickHandler={this.handleMapClick.bind(this)} {...this.props.mapProps} />
       </div>
     );
   }
@@ -42,7 +39,13 @@ class GameMap extends Component {
 
 const mapStateToProps = state => {
   return {
-    map: state.map,
+    score: state.ui.score,
+    spottedCities: state.ui.spottedCities,
+    currentCity: state.map.currentCity,
+    maxDeviation: state.map.maxDeviation,
+    change: state.ui.change,
+    mapProps: state.map.mapProps,
+    cities: state.map.cities,
   };
 }
 
@@ -50,6 +53,7 @@ const mapDispatchToProps = dispatch => {
   return {
     mapClicked: (clickCoordinates) => dispatch(mapClick(clickCoordinates)),
     losePoints: (lostPoints) => dispatch(subtractPoints(lostPoints)),
+    citySpotted: (city) => dispatch(citySpotted(city)),
   };
 };
 

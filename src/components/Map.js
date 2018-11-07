@@ -1,8 +1,9 @@
 import React from 'react';
 import { ReactBingmaps } from 'react-bingmaps';
+import './Map.css';
 
 const map = ({ clickHandler, center, bingmapKey, mapTypeId }) => (
-  <div style={{ height: '100vh', width: '100%' }}>
+  <div className='Map' style={{ height: '100vh' }}>
     <ReactBingmaps
           labelOverlay='hidden'
           bingmapKey = { bingmapKey }

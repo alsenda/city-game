@@ -2,64 +2,64 @@ export default [
   {
     name: 'Amsterdam',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 52.5,
+      longitude: 5.75,
     },
   },
   {
     name: 'Berlin',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 51,
+      longitude: 9,
     },
   },
   {
     name: 'London',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 51.526097,
+      longitude: -0.146340,
     },
   },
   {
     name: 'Madrid',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 40.415858,
+      longitude: -3.700865,
     },
   },
   {
     name: 'Oslo',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 59.913370,
+      longitude: 10.751530,
     },
   },
   {
     name: 'Paris',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 48.857915,
+      longitude: 2.344312,
     },
   },
   {
     name: 'Rome',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 41.900234,
+      longitude: 12.494778,
     },
   },
   {
     name: 'Vienna',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 48.211382,
+      longitude: 16.364928,
     },
   },
   {
     name: 'Zurich',
     coordinates: {
-      latitude: 50,
-      longitude: 4,
+      latitude: 47.377411,
+      longitude: 8.538431,
     },
   },
 ];

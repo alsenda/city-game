@@ -1,7 +1,6 @@
 import cities from '../cities';
 
 const initialState = {
-  score: 1500,
   maxDeviation: 50000,
   cities: cities,
   currentCity: {
@@ -12,21 +11,28 @@ const initialState = {
     }
   },
   clickCoordinates: [],
+  mapProps: {
+    center: [54, 14],
+    bingmapKey: 'AreSMxQDRlNyZMBEt5u5fQ9g5OP_jdLS4TkgAiV7Evki1Czpor8RExlEXzljmySW',
+    mapTypeId: 'road',
+  },
 };
 
 const map = (state = initialState, action) => {
-  console.log('ACTION', action);
   switch (action.type) {
     case 'MAP_CLICK':
       return {
         ...state,
         clickCoordinates: action.clickCoordinates
       };
-    case 'SUBTRACT_POINTS':
+    case 'CITY_SPOTTED':
+      const newCities = state.cities;
+      const newCurrentCity = newCities.splice(Math.floor(Math.random * state.cities.length), 1)[0];
       return {
         ...state,
-        score: state.score - action.lostPoints
-      }
+        cities: newCities,
+        currentCity: newCurrentCity,
+      };
     default:
       return state;
   }
