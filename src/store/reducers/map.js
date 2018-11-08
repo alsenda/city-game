@@ -1,8 +1,8 @@
-import cities from '../cities';
+import citiesJSON from '../cities';
 
 const initialState = {
   maxDeviation: 50000,
-  cities: cities,
+  cities: citiesJSON,
   currentCity: {
     name: 'Brussels',
     coordinates: {
@@ -27,12 +27,15 @@ const map = (state = initialState, action) => {
       };
     case 'CITY_SPOTTED':
       const newCities = state.cities;
-      const newCurrentCity = newCities.splice(Math.floor(Math.random * state.cities.length), 1)[0];
+      const newCurrentCity = newCities.splice(0, 1)[0];
       return {
         ...state,
         cities: newCities,
         currentCity: newCurrentCity,
       };
+    case 'RESET_GAME':
+      console.log('RESET_GAME');
+      return initialState;
     default:
       return state;
   }

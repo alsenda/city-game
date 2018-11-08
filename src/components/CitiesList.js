@@ -1,16 +1,16 @@
 import React from 'react';
+import { Badge } from 'reactstrap';
+import './CitiesList.css';
 
-const citiesList = ({ title, cities }) => {
+const citiesList = ({ title, cities, color='warning' }) => {
   return (
-    <div>
-      <h2>{title}</h2>
-      <ul>
+    <div className='CitiesList'>
+      <h4 className="alert-heading">{title}</h4>
         {
           cities.map(city => {
-            return <li key={city.name}>{ city.name }</li>;
+            return <Badge className='CityBadge' color={color} key={city.name}>{ city.name }</Badge> ;
           })
         }
-      </ul>
     </div>
   );
 };

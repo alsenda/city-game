@@ -8,12 +8,6 @@ const initialState = {
 const ui = (state = initialState, action) => {
   console.log('ACTION', action);
   switch (action.type) {
-    case 'RESET_GAME':
-      return {
-        ...state,
-        score: state.initialScore,
-        spottedCities: {},
-      };
     case 'SUBTRACT_POINTS':
       return {
         ...state,
@@ -29,6 +23,8 @@ const ui = (state = initialState, action) => {
         change: 0,
         spottedCities: newSpottedCities,
       };
+    case 'RESET_GAME':
+      return initialState;
     default:
       return state;
   }

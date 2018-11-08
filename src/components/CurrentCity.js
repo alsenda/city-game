@@ -1,8 +1,19 @@
 import React from 'react';
+import './CurrentCity.css';
 
-const currentCity = ({ name }) => {
+const currentCity = ({ city }) => {
+  const display = city
+    ? <div>
+        Select the location of
+        <h1>{ city.name }</h1>
+      </div>
+    : <div>
+        <h1>You win!</h1>
+      </div>
   return (
-    <div>Select the location of<br/><strong>{ name }</strong></div>
+    <div className='CurrentCity'>
+      {display}
+    </div>
   );
 }
 

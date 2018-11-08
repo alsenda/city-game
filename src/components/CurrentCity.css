@@ -1,0 +1,11 @@
+.CurrentCity {
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 10px;
+}
+
+.CurrentCity div {
+  position: relative;
+  left: -50%;
+}

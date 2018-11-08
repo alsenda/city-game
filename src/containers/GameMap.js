@@ -1,12 +1,16 @@
 import { connect } from 'react-redux';
-import { mapClick, subtractPoints, citySpotted } from '../store/actions';
+import { mapClick, subtractPoints, citySpotted, resetGame } from '../store/actions';
 import React, { Component } from 'react';
+import { Container, Row, Col, Button } from 'reactstrap';
 import geolib from 'geolib';
 import Map from '../components/Map';
 import GameUI from '../components/GameUI';
+import CurrentCity from '../components/CurrentCity';
+import './GameMap.css';
 
 class GameMap extends Component {
   handleMapClick(location) {
+    if(!this.props.currentCity) return false;
     const clickCoordinates = {
       latitude: location.latitude,
       longitude: location.longitude,
@@ -21,18 +25,31 @@ class GameMap extends Component {
     }
   }
 
+  handleReset() {
+    this.props.resetGame();
+  }
+
   render() {
+
     return (
-      <div className='GameMap'>
-        <GameUI
-          score={this.props.score}
-          currentCity={this.props.currentCity}
-          scoreChange={this.props.change}
-          cities={this.props.cities}
-          spottedCities={this.props.spottedCities}
-          />
-        <Map clickHandler={this.handleMapClick.bind(this)} {...this.props.mapProps} />
-      </div>
+      <Container className='GameMap' fluid={true}>
+        <Row>
+          <Col xl='3' xs='12'>
+            <GameUI
+              score={this.props.score}
+              scoreChange={this.props.change}
+              cities={this.props.cities}
+              spottedCities={this.props.spottedCities}
+              />
+              <Button color={'danger'} className='ResetGameButton' onClick={this.handleReset.bind(this)}>Reset game</Button>
+          </Col>
+          <Col xl='9' xs='12'>
+            <Map clickHandler={ this.handleMapClick.bind(this) } {...this.props.mapProps}>
+              <CurrentCity city={ this.props.currentCity } />
+            </Map>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
@@ -54,6 +71,7 @@ const mapDispatchToProps = dispatch => {
     mapClicked: (clickCoordinates) => dispatch(mapClick(clickCoordinates)),
     losePoints: (lostPoints) => dispatch(subtractPoints(lostPoints)),
     citySpotted: (city) => dispatch(citySpotted(city)),
+    resetGame: () => dispatch(resetGame()),
   };
 };
 
