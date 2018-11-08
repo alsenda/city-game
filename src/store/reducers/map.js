@@ -26,7 +26,7 @@ const map = (state = initialState, action) => {
         clickCoordinates: action.clickCoordinates
       };
     case 'CITY_SPOTTED':
-      const newCities = state.cities;
+      const newCities = [...state.cities];
       const newCurrentCity = newCities.splice(0, 1)[0];
       return {
         ...state,

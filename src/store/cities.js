@@ -2,15 +2,15 @@ export default [
   {
     name: 'Amsterdam',
     coordinates: {
-      latitude: 52.5,
-      longitude: 5.75,
+      latitude: 52.367821,
+      longitude: 4.892119,
     },
   },
   {
     name: 'Berlin',
     coordinates: {
-      latitude: 51,
-      longitude: 9,
+      latitude: 52.520425,
+      longitude: 13.411077,
     },
   },
   {
